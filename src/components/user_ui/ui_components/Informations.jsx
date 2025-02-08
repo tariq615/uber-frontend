@@ -1,6 +1,6 @@
 import React from "react";
 
-const Information = ({pickup, destination, fare, currency}) => {
+const Informations = ({pickup, destination, fare, currency}) => {
   return (
     <div className="w-full h-full mt-5">
       <div className="flex items-center gap-5 p-3 border-b-2">
@@ -30,4 +30,4 @@ const Information = ({pickup, destination, fare, currency}) => {
   );
 };
 
-export default Information;
+export default Informations;

@@ -1,5 +1,5 @@
 import React from 'react'
-import Information from './ui_components/information'
+import Information from './ui_components/Informations'
 
 const WaitingForDriver =  ({img, setWaitingForDriverPanel, pickup, destination, fare, ride}) => {
     return (

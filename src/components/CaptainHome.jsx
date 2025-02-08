@@ -16,7 +16,6 @@ const CaptainHome = () => {
 
   const [ridePopupPanel, setRidePopupPanel] = useState(false);
   const [AcceptRidePopupPanel, setAcceptRidePopupPanel] = useState(false);
-  const [error, setError] = useState("");
 
   const ridePopupPanelRef = useRef(null);
   const AcceptRidePopupPanelRef = useRef(null);
@@ -145,7 +144,7 @@ const CaptainHome = () => {
         <LiveTracking color="#d5622d" />
       </div>
       <div className="h-2/5 p-6">
-        <CaptainDetails capDetails={capDetails} error={error}/>
+        <CaptainDetails capDetails={capDetails}/>
       </div>
       <div
         ref={ridePopupPanelRef}

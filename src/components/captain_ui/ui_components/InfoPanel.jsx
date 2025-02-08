@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Information from "../../user_ui/ui_components/information";
+import Information from "../../user_ui/ui_components/Informations";
 
 const InfoPanel = ({
   title,

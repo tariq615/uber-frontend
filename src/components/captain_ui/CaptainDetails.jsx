@@ -1,11 +1,11 @@
-const CaptainDetails = ({capDetails, error}) => {
+const CaptainDetails = ({capDetails}) => {
   const name = `${capDetails.fullname.firstname} ${capDetails.fullname.lastname}`;
 
     return (
         <div>
             <div className='flex items-center justify-between'>
                 <div className='flex items-center justify-start gap-3'>
-                    <img className='h-10 w-10 rounded-full object-cover' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdlMd7stpWUCmjpfRjUsQ72xSWikidbgaI1w&s" alt="" />
+                    <img className='h-10 w-10 rounded-full object-cover' src="" alt="" />
                     <h4 className='text-lg font-medium capitalize'>{name}</h4>
                 </div>
                 {/* <div>
@@ -29,9 +29,7 @@ const CaptainDetails = ({capDetails, error}) => {
                     <h5 className='text-lg font-medium'>****</h5>
                     <p className='text-sm text-gray-600'>Total Earned</p>
                 </div>
-
             </div>
-            {/* {error && <p className='text-red-500 text-sm font-semibold text-center p-2'>{error}</p>} */}
         </div>
     )
 }

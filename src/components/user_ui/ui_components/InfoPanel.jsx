@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Information from './information';
+import Information from './Informations';
 
 const InfoPanel = ({
     title,
