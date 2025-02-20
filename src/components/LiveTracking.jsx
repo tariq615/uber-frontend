@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Map, { Marker } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import "../../public/styles/style.css";
 
 const MapboxLiveLocation = ({color}) => {
   const [viewport, setViewport] = useState({

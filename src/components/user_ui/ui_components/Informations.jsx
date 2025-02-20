@@ -6,14 +6,14 @@ const Informations = ({pickup, destination, fare, currency}) => {
       <div className="flex items-center gap-5 p-3 border-b-2">
         <i className="ri-map-pin-user-fill"></i>
         <div>
-          <h3 className="h-[7vh] tracking-tighter leading-tight text-lg font-medium overflow-hidden flex flex-col items-center justify-center">{pickup}</h3>
+          <h3 className="h-[7vh] tracking-tighter leading-tight text-lg font-medium flex flex-col items-center justify-center">{pickup.length > 70 ? `${pickup.slice(0, 70)}...`: pickup}</h3>
           <p className="text-sm -mt-1 text-gray-600">Pickup</p>
         </div>
       </div>
       <div className="flex items-center gap-5 p-3 border-b-2">
         <i className="text-lg ri-map-pin-2-fill"></i>
         <div>
-          <h3 className="h-[7vh] tracking-tighter leading-tight text-lg font-medium overflow-hidden flex flex-col items-center justify-center">{destination}</h3>
+          <h3 className="h-[7vh] tracking-tighter leading-tight text-lg font-medium flex flex-col items-center justify-center">{destination.length > 70 ? `${destination.slice(0,70)}...`: destination}</h3>
           <p className="text-sm -mt-1 text-gray-600">Destination</p>
         </div>
       </div>

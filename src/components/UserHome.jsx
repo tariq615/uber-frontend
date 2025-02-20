@@ -12,6 +12,8 @@ import { useSelector } from "react-redux";
 import { SocketContext } from "../context/SocketContext";
 import { useNavigate } from "react-router-dom";
 import  LiveTracking  from "./LiveTracking";
+import { Link } from "react-router-dom";
+import UserLogoutBtn from "./user/UserLogoutBtn";
 
 const UserHome = () => {
   // setting variables
@@ -41,6 +43,7 @@ const UserHome = () => {
 
   // for refrencing
   const logoRef = useRef(null);
+  const logoutRef = useRef(null);
   const mapRef = useRef(null);
   const panelRef = useRef(null);
   const panelCloseRef = useRef(null);
@@ -160,6 +163,7 @@ const UserHome = () => {
     function () {
       if (panelOpen) {
         gsap.set(logoRef.current, {zIndex: 0});
+        gsap.set(logoutRef.current, {zIndex: 0});
         gsap.set(mapRef.current, {display: "none" });
         gsap.to(panelRef.current, {
           duration: 0.8,
@@ -176,13 +180,18 @@ const UserHome = () => {
           zIndex: 1,
           ease: "power2.inOut",
         });
+        gsap.to(logoutRef.current, {
+          duration: 0.5,
+          zIndex: 1,
+          ease: "power2.inOut",
+        });
         gsap.to(panelRef.current, {
           height: "0%",
           padding: 0,
           duration: 0.5,
           ease: "power2.in",
           onComplete: () => {
-            gsap.set(mapRef.current, { display: "flex", pointerEvents: "pointer" }); // Restores the map
+            gsap.set(mapRef.current, { display: "block", pointerEvents: "pointer" }); // Restores the map
           },
         });
         gsap.to(panelCloseRef.current, {
@@ -260,6 +269,7 @@ const UserHome = () => {
         src="/images/self/userlogo.webp"
         alt=""
       />
+      <UserLogoutBtn ref={logoutRef}/>
       <div className=" flex flex-col justify-end h-screen absolute top-0 w-full ">
       <div ref={mapRef} className="h-[70%]">
         <LiveTracking color="#3b82f6"/>

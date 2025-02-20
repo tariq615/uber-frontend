@@ -8,7 +8,7 @@ const UserHome = () => {
   return (
     <div>
       <Home />
-      <UserLogoutBtn />
+      {/* <UserLogoutBtn /> */}
       {/* <LiveTracking /> */}
 
     </div>

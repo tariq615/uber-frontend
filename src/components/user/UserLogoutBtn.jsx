@@ -1,10 +1,10 @@
-import React from "react";
+import React, {forwardRef} from "react";
 import userAuth from "../../mongodb/userAuth";
 import { roleUnAuth } from "../../store/roleAuthSlice";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-const UserLogoutBtn = () => {
+const UserLogoutBtn = forwardRef(({},ref) => {
   const navigate = useNavigate();
   const dipatch = useDispatch();
   const handleLogout = async () => {
@@ -27,19 +27,13 @@ const UserLogoutBtn = () => {
 
   return (
     <button
+      ref={ref}
       onClick={handleLogout}
-      style={{
-        padding: "10px 20px",
-        backgroundColor: "#007BFF",
-        color: "white",
-        border: "none",
-        borderRadius: "5px",
-        cursor: "pointer",
-      }}
+      className="fixed right-2 top-2 h-10 w-10 bg-white flex items-center justify-center rounded-full z-30"
     >
-      Logout
+      <i className="text-lg font-medium ri-logout-box-r-line"></i>
     </button>
   );
-};
+});
 
 export default UserLogoutBtn;
