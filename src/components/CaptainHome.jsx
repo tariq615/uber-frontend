@@ -9,6 +9,7 @@ import AcceptRidePopUp from "./captain_ui/AcceptRidePopUp";
 import { SocketContext } from "../context/SocketContext";
 import captainService from "../mongodb/captainConfig";
 import LiveTracking from "./LiveTracking";
+import CapLogoutBtn from "./captain/CapLogoutBtn";
 
 const CaptainHome = () => {
   const capDetails = useSelector((state) => state.captainAuth.captainData);
@@ -132,13 +133,18 @@ const CaptainHome = () => {
   return (
     <div className="h-screen">
       <div className="fixed p-6 top-0 flex items-center justify-between w-screen z-40">
-        <img className="w-16" src="images/self/userlogo.webp" alt="" />
-        <Link
+        <img
+        className="w-16 absolute left-5 top-5 z-30"
+        src="/images/self/userlogo.webp"
+        alt=""
+      />
+      <CapLogoutBtn />
+        {/* <Link
           to="/captain-home"
           className=" h-10 w-10 bg-white flex items-center justify-center rounded-full"
         >
           <i className="text-lg font-medium ri-logout-box-r-line"></i>
-        </Link>
+        </Link> */}
       </div>
       <div className="h-3/5"> 
         <LiveTracking color="#d5622d" />

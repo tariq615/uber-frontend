@@ -157,8 +157,6 @@ const UserHome = () => {
       alert(`Error creating ride: ${error.message}`);
     }
   };
-
-  // useGSAP(
   //   function () {
   //     if (panelOpen) {
   //       gsap.set(logoRef.current, { zIndex: 0 });

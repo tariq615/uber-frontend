@@ -1,6 +1,7 @@
 import React from 'react'
 
-const VehicleOption = ({ imgSrc, title, capacity, time, description, price, onClick }) => (
+const VehicleOption = ({ imgSrc, title, capacity, description, price, onClick }) => (
+  // time can be added in future
     <div
       onClick={onClick}
       className="flex border-2 active:border-black mb-2 rounded-xl w-full p-3 items-center justify-between"
@@ -14,7 +15,7 @@ const VehicleOption = ({ imgSrc, title, capacity, time, description, price, onCl
             {capacity}
           </span>
         </h4>
-        <h5 className="font-medium text-sm">{time}</h5>
+        {/* <h5 className="font-medium text-sm">{time}</h5> */}
         <p className="font-normal text-xs text-gray-600">{description}</p>
       </div>
       <h2 className="text-lg font-semibold">Rs.{price}</h2>
