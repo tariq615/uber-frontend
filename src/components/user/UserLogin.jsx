@@ -73,7 +73,8 @@ const UserLogin = () => {
   return (
     <div className="p-7 h-screen flex flex-col justify-between">
       <div>
-        <UserLogo />
+      {/* <img className='w-16 mb-10' src="/images/self/sawari2.jpg" alt="" /> */}
+        <UserLogo css="w-16 mb-10"/>
         <form
           onSubmit={(e) => {
             submitHandler(e);

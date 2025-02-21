@@ -36,8 +36,8 @@ const MapboxLiveLocation = ({color}) => {
       if (error.code === error.PERMISSION_DENIED) {
         setViewport(prev => ({
           ...prev,
-          latitude: 51.5074,
-          longitude: -0.1278
+          latitude: 31.418715,
+          longitude: 	73.079109
         }));
       }
     };

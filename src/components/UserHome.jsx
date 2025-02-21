@@ -14,6 +14,8 @@ import { useNavigate } from "react-router-dom";
 import LiveTracking from "./LiveTracking";
 import { Link } from "react-router-dom";
 import UserLogoutBtn from "./user/UserLogoutBtn";
+import UserLogo from "./logo/UserLogo";
+import Loading from "./Loading";
 
 const UserHome = () => {
   // setting variables
@@ -35,7 +37,7 @@ const UserHome = () => {
   const [fare, setFare] = useState(null);
   const [ride, setRide] = useState(null);
   const [rideStatus, setRideStatus] = useState(null);
-
+  const [loading, setLoading] = useState(false);
   // getting user details
   const userDetails = useSelector((state) => state.userAuth.userData);
   const { socket } = useContext(SocketContext);
@@ -77,45 +79,25 @@ const UserHome = () => {
     setWaitingForDriverPanel(false);
   });
 
-  // Helper function for validating inputs
-  const validateInput = (input, type) => {
-    if (input.length < 3) {
-      return `${type} must contain at least 3 characters.`;
-    }
-    return "";
-  };
-
   const handlePickupChange = async (e) => {
     const inputValue = e.target.value;
     setPickup(inputValue);
-    const errorMessage = validateInput(inputValue, "Pickup location");
 
-    if (!errorMessage) {
-      const response = await userService.getSuggestions(inputValue);
-      if (response.data.length > 0) {
-        setPickupSuggestions(response.data);
-        setError("");
-      }
-    } else {
-      setPickupSuggestions([]);
-      setError(errorMessage);
+    const response = await userService.getSuggestions(inputValue);
+    if (response.data.length > 0) {
+      setPickupSuggestions(response.data);
+      setError("");
     }
   };
 
   const handleDestinationChange = async (e) => {
     const inputValue = e.target.value;
     setDestination(inputValue);
-    const errorMessage = validateInput(inputValue, "Destination");
 
-    if (!errorMessage) {
-      const response = await userService.getSuggestions(inputValue);
-      if (response.data.length > 0) {
-        setDestinationSuggestions(response.data);
-        setError("");
-      }
-    } else {
-      setDestinationSuggestions([]);
-      setError(errorMessage);
+    const response = await userService.getSuggestions(inputValue);
+    if (response.data.length > 0) {
+      setDestinationSuggestions(response.data);
+      setError("");
     }
   };
 
@@ -128,6 +110,8 @@ const UserHome = () => {
       return;
     }
 
+    setLoading(true);
+
     try {
       // Get fare details
       const response = await userService.getFare(pickup, destination);
@@ -135,6 +119,7 @@ const UserHome = () => {
       if (response?.data) {
         setFares(response.data.fare);
         setError("");
+        setLoading(false);
         setVehiclePanel(true);
         setPanelOpen(false);
       }
@@ -203,41 +188,41 @@ const UserHome = () => {
   // );
 
   useGSAP(
-  function () {
-    if (panelOpen) {
-      gsap.to(inputRef.current, {
-        duration: 0.8,
-        y: "-223%",
-        ease: "power2.out",
-      });
-      gsap.to(panelRef.current, {
-        duration: 0.5,
-        y: 0,
-        ease: "power2.out",
-      });
-      gsap.to(panelCloseRef.current, {
-        opacity: 1,
-        duration: 0.3,
-      });
-    } else {
-      gsap.to(inputRef.current, {
-        duration: 0.6,
-        y: "0",
-        ease: "power2.in",
-      });
-      gsap.to(panelRef.current, {
-        y: "100%",
-        duration: 0.6,
-        ease: "power2.in",
-      });
-      gsap.to(panelCloseRef.current, {
-        opacity: 0,
-        duration: 0.2,
-      });
-    }
-  },
-  [panelOpen]
-);  
+    function () {
+      if (panelOpen) {
+        gsap.to(inputRef.current, {
+          duration: 0.8,
+          y: "-223%",
+          ease: "power2.out",
+        });
+        gsap.to(panelRef.current, {
+          duration: 0.5,
+          y: 0,
+          ease: "power2.out",
+        });
+        gsap.to(panelCloseRef.current, {
+          opacity: 1,
+          duration: 0.3,
+        });
+      } else {
+        gsap.to(inputRef.current, {
+          duration: 0.6,
+          y: "0",
+          ease: "power2.in",
+        });
+        gsap.to(panelRef.current, {
+          y: "100%",
+          duration: 0.6,
+          ease: "power2.in",
+        });
+        gsap.to(panelCloseRef.current, {
+          opacity: 0,
+          duration: 0.2,
+        });
+      }
+    },
+    [panelOpen]
+  );
 
   useGSAP(
     function () {
@@ -299,18 +284,18 @@ const UserHome = () => {
     [waitingForDriverPanel]
   );
   return (
-    <div className="h-screen relative overflow-hidden bg-red-200">
-      <img
-        className="w-16 absolute left-5 top-5 z-30"
-        src="/images/self/userlogo.webp"
-        alt=""
-      />
-      <UserLogoutBtn/>
+    <div className="h-screen relative overflow-hidden">
+      {loading && (<Loading />)}
+      <UserLogo />
+      <UserLogoutBtn />
       <div className=" flex flex-col justify-end h-screen relative ">
         <div className="relative z-10 h-[70%]">
           <LiveTracking color="#3b82f6" />
         </div>
-        <div ref={inputRef} className="bottom-[30%] h-[31%] translate-y-0 bg-white z-30 p-6">
+        <div
+          ref={inputRef}
+          className="bottom-[30%] h-[31%] translate-y-0 bg-white z-30 p-6"
+        >
           <h5
             ref={panelCloseRef}
             onClick={() => {
@@ -356,7 +341,10 @@ const UserHome = () => {
             Find Trip
           </button>
         </div>
-        <div ref={panelRef} className="absolute bottom-0 left-0 right-0 h-[70%] p-6 translate-y-full z-20 bg-white overflow-y-auto">
+        <div
+          ref={panelRef}
+          className="absolute bottom-0 left-0 right-0 h-[70%] p-6 translate-y-full z-20 bg-white overflow-y-auto"
+        >
           <LocationSearchPanel
             activeField={activeField}
             suggestions={

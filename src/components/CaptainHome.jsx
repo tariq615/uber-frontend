@@ -10,6 +10,7 @@ import { SocketContext } from "../context/SocketContext";
 import captainService from "../mongodb/captainConfig";
 import LiveTracking from "./LiveTracking";
 import CapLogoutBtn from "./captain/CapLogoutBtn";
+import UserLogo from "./logo/UserLogo";
 
 const CaptainHome = () => {
   const capDetails = useSelector((state) => state.captainAuth.captainData);
@@ -133,18 +134,8 @@ const CaptainHome = () => {
   return (
     <div className="h-screen">
       <div className="fixed p-6 top-0 flex items-center justify-between w-screen z-40">
-        <img
-        className="w-16 absolute left-5 top-5 z-30"
-        src="/images/self/userlogo.webp"
-        alt=""
-      />
+      <UserLogo />
       <CapLogoutBtn />
-        {/* <Link
-          to="/captain-home"
-          className=" h-10 w-10 bg-white flex items-center justify-center rounded-full"
-        >
-          <i className="text-lg font-medium ri-logout-box-r-line"></i>
-        </Link> */}
       </div>
       <div className="h-3/5"> 
         <LiveTracking color="#d5622d" />
@@ -164,7 +155,7 @@ const CaptainHome = () => {
       </div>
       <div
         ref={AcceptRidePopupPanelRef}
-        className="fixed w-full h-screen z-10 bottom-0 translate-y-full bg-white px-3 py-10 pt-12"
+        className="fixed w-full h-screen z-40 bottom-0 translate-y-full bg-white px-3 py-10 pt-12"
       >
         <AcceptRidePopUp
           ride={ride}

@@ -5,7 +5,7 @@ const CaptainDetails = ({capDetails}) => {
         <div>
             <div className='flex items-center justify-between'>
                 <div className='flex items-center justify-start gap-3'>
-                    <img className='h-10 w-10 rounded-full object-cover' src="" alt="" />
+                    <img className='h-10 w-10 rounded-full object-cover' src="/images/self/noImage.jpg" alt="" />
                     <h4 className='text-lg font-medium capitalize'>{name}</h4>
                 </div>
                 {/* <div>

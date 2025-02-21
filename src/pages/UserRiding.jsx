@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom"; // Added useLocation
 import { SocketContext } from '../context/SocketContext'
 import { useNavigate } from "react-router-dom";
 import LiveTracking from "../components/LiveTracking";
+import UserLogo from "../components/logo/UserLogo";
 
 const UserRiding = () => {
   const location = useLocation();
@@ -16,6 +17,7 @@ const UserRiding = () => {
 
   return (
     <div className="h-screen">
+      <UserLogo />
       <Link
         to="/home"
         className="fixed right-2 top-2 h-10 w-10 bg-white flex items-center justify-center rounded-full z-30"
@@ -33,7 +35,6 @@ const UserRiding = () => {
           <div className="text-right">
             <h2 className="text-lg font-medium capitalize">{`${ride?.captain.fullname.firstname} ${ride?.captain.fullname.lastname}`}</h2>
             <h4 className="text-xl font-semibold -mt-1 -mb-1">{ride?.captain.vehicle.plate}</h4>
-            <p className="text-sm text-gray-600">Suzuki Alto</p>
           </div>
         </div>
 

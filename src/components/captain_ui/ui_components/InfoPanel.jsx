@@ -27,8 +27,7 @@ const InfoPanel = ({
         <div className="flex items-center gap-3 ">
           <img
             className="h-12 rounded-full object-cover w-12"
-            src="https://miro.medium.com/v2/resize:fit:1400/0*gwMx05pqII5hbfmX.gif"
-            alt="person"
+            src="/images/self/noImage.jpg"
           />
           <h2 className="text-lg font-medium">{user}</h2>
         </div>
