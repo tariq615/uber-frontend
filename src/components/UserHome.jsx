@@ -11,7 +11,7 @@ import userService from "../mongodb/userConfig";
 import { useSelector } from "react-redux";
 import { SocketContext } from "../context/SocketContext";
 import { useNavigate } from "react-router-dom";
-import  LiveTracking  from "./LiveTracking";
+import LiveTracking from "./LiveTracking";
 import { Link } from "react-router-dom";
 import UserLogoutBtn from "./user/UserLogoutBtn";
 
@@ -42,9 +42,8 @@ const UserHome = () => {
   const navigate = useNavigate();
 
   // for refrencing
-  const logoRef = useRef(null);
-  const logoutRef = useRef(null);
-  const mapRef = useRef(null);
+  // const mapRef = useRef(null);
+  const inputRef = useRef(null);
   const panelRef = useRef(null);
   const panelCloseRef = useRef(null);
   const vehiclePanelRef = useRef(null);
@@ -77,7 +76,7 @@ const UserHome = () => {
     setRideStatus("ride canceled");
     setWaitingForDriverPanel(false);
   });
-  
+
   // Helper function for validating inputs
   const validateInput = (input, type) => {
     if (input.length < 3) {
@@ -159,48 +158,88 @@ const UserHome = () => {
     }
   };
 
+  // useGSAP(
+  //   function () {
+  //     if (panelOpen) {
+  //       gsap.set(logoRef.current, { zIndex: 0 });
+  //       gsap.set(logoutRef.current, { zIndex: 0 });
+  //       gsap.set(mapRef.current, { display: "none" });
+  //       gsap.to(panelRef.current, {
+  //         duration: 0.8,
+  //         height: "70%",
+  //         padding: 24,
+  //         // opacity:1
+  //       });
+  //       gsap.to(panelCloseRef.current, {
+  //         opacity: 1,
+  //       });
+  //     } else {
+  //       gsap.to(logoRef.current, {
+  //         duration: 0.5,
+  //         zIndex: 1,
+  //         ease: "power2.inOut",
+  //       });
+  //       gsap.to(logoutRef.current, {
+  //         duration: 0.5,
+  //         zIndex: 1,
+  //         ease: "power2.inOut",
+  //       });
+  //       gsap.to(panelRef.current, {
+  //         height: "0%",
+  //         padding: 0,
+  //         duration: 0.5,
+  //         ease: "power2.in",
+  //         onComplete: () => {
+  //           gsap.set(mapRef.current, {
+  //             display: "block",
+  //             pointerEvents: "pointer",
+  //           }); // Restores the map
+  //         },
+  //       });
+  //       gsap.to(panelCloseRef.current, {
+  //         opacity: 0,
+  //       });
+  //     }
+  //   },
+  //   [panelOpen]
+  // );
+
   useGSAP(
-    function () {
-      if (panelOpen) {
-        gsap.set(logoRef.current, {zIndex: 0});
-        gsap.set(logoutRef.current, {zIndex: 0});
-        gsap.set(mapRef.current, {display: "none" });
-        gsap.to(panelRef.current, {
-          duration: 0.8,
-          height: "70%",
-          padding: 24,
-          // opacity:1
-        });
-        gsap.to(panelCloseRef.current, {
-          opacity: 1,
-        });
-      } else {
-        gsap.to(logoRef.current, {
-          duration: 0.5,
-          zIndex: 1,
-          ease: "power2.inOut",
-        });
-        gsap.to(logoutRef.current, {
-          duration: 0.5,
-          zIndex: 1,
-          ease: "power2.inOut",
-        });
-        gsap.to(panelRef.current, {
-          height: "0%",
-          padding: 0,
-          duration: 0.5,
-          ease: "power2.in",
-          onComplete: () => {
-            gsap.set(mapRef.current, { display: "block", pointerEvents: "pointer" }); // Restores the map
-          },
-        });
-        gsap.to(panelCloseRef.current, {
-          opacity: 0,
-        });
-      }
-    },
-    [panelOpen]
-  );
+  function () {
+    if (panelOpen) {
+      gsap.to(inputRef.current, {
+        duration: 0.8,
+        y: "-223%",
+        ease: "power2.out",
+      });
+      gsap.to(panelRef.current, {
+        duration: 0.5,
+        y: 0,
+        ease: "power2.out",
+      });
+      gsap.to(panelCloseRef.current, {
+        opacity: 1,
+        duration: 0.3,
+      });
+    } else {
+      gsap.to(inputRef.current, {
+        duration: 0.6,
+        y: "0",
+        ease: "power2.in",
+      });
+      gsap.to(panelRef.current, {
+        y: "100%",
+        duration: 0.6,
+        ease: "power2.in",
+      });
+      gsap.to(panelCloseRef.current, {
+        opacity: 0,
+        duration: 0.2,
+      });
+    }
+  },
+  [panelOpen]
+);  
 
   useGSAP(
     function () {
@@ -262,19 +301,18 @@ const UserHome = () => {
     [waitingForDriverPanel]
   );
   return (
-    <div className="h-screen relative overflow-hidden">
+    <div className="h-screen relative overflow-hidden bg-red-200">
       <img
-        ref={logoRef}
-        className="w-16 absolute left-5 top-5"
+        className="w-16 absolute left-5 top-5 z-30"
         src="/images/self/userlogo.webp"
         alt=""
       />
-      <UserLogoutBtn ref={logoutRef}/>
-      <div className=" flex flex-col justify-end h-screen absolute top-0 w-full ">
-      <div ref={mapRef} className="h-[70%]">
-        <LiveTracking color="#3b82f6"/>
-      </div>
-        <div className="h-[30%] p-6 bg-white relative">
+      <UserLogoutBtn/>
+      <div className=" flex flex-col justify-end h-screen relative ">
+        <div className="relative z-10 h-[70%]">
+          <LiveTracking color="#3b82f6" />
+        </div>
+        <div ref={inputRef} className="bottom-[30%] h-[31%] translate-y-0 bg-white z-30 p-6">
           <h5
             ref={panelCloseRef}
             onClick={() => {
@@ -320,7 +358,7 @@ const UserHome = () => {
             Find Trip
           </button>
         </div>
-        <div ref={panelRef} className="h-0 bg-white">
+        <div ref={panelRef} className="absolute bottom-0 left-0 right-0 h-[70%] p-6 translate-y-full z-20 bg-white overflow-y-auto">
           <LocationSearchPanel
             activeField={activeField}
             suggestions={
@@ -335,7 +373,7 @@ const UserHome = () => {
       </div>
       <div
         ref={vehiclePanelRef}
-        className="fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-10 pt-12"
+        className="fixed w-full z-40 bottom-0 translate-y-full bg-white px-3 py-10 pt-12"
       >
         <VehiclePanel
           setConfirmRidePanel={setConfirmRidePanel}
@@ -348,7 +386,7 @@ const UserHome = () => {
       </div>
       <div
         ref={confirmRidePanelRef}
-        className="fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-6 pt-12"
+        className="fixed w-full z-40 bottom-0 translate-y-full bg-white px-3 py-6 pt-12"
       >
         <ConfirmRide
           img={imgForConRide}
@@ -362,7 +400,7 @@ const UserHome = () => {
       </div>
       <div
         ref={lookingForDriverPanelRef}
-        className="fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-6 pt-12"
+        className="fixed w-full z-40 bottom-0 translate-y-full bg-white px-3 py-6 pt-12"
       >
         <LookingForDriver
           img={imgForConRide}
@@ -375,7 +413,7 @@ const UserHome = () => {
       </div>
       <div
         ref={waitingForDriverPanelRef}
-        className="fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-6 pt-12"
+        className="fixed w-full z-40 bottom-0 translate-y-full bg-white px-3 py-6 pt-12"
       >
         <WaitingForDriver
           img={imgForConRide}
