@@ -95,7 +95,7 @@ const CaptainSignup = () => {
   return (
     <div className="py-5 px-5 h-screen flex flex-col justify-between">
       <div>
-        <UserLogo />
+        <UserLogo css="w-32 -ml-6 -mt-7"/>
         <form
           onSubmit={(e) => {
             submitHandler(e);
