@@ -1,7 +1,7 @@
 import { React, useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { gsap } from "gsap"; // Add GSAP import
-import CaptainLogo from "../logo/CaptainLogo";
+import UserLogo from "../logo/UserLogo";
 import captainAuth from "../../mongodb/captainAuth";
 import { roleAuth } from "../../store/roleAuthSlice";
 import { captainLogin } from "../../store/captainAuthSlice";
@@ -95,7 +95,7 @@ const CaptainSignup = () => {
   return (
     <div className="py-5 px-5 h-screen flex flex-col justify-between">
       <div>
-        <CaptainLogo />
+        <UserLogo />
         <form
           onSubmit={(e) => {
             submitHandler(e);
