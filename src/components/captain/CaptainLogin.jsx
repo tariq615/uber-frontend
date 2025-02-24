@@ -6,6 +6,7 @@ import captainAuth from "../../mongodb/captainAuth";
 import { roleAuth } from "../../store/roleAuthSlice";
 import { captainLogin } from "../../store/captainAuthSlice";
 import { useDispatch } from "react-redux";
+import UserLogo from "../logo/UserLogo";
 
 const CaptainLogin = () => {
   const [email, setEmail] = useState("");
@@ -72,7 +73,7 @@ const CaptainLogin = () => {
   return (
     <div className="p-7 h-screen flex flex-col justify-between">
       <div>
-        <CaptainLogo />
+      <UserLogo css="w-32 -ml-6 -mt-7"/>
         <form
           onSubmit={(e) => {
             submitHandler(e);
