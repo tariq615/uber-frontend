@@ -7,7 +7,7 @@ const VehiclePanel = ({setVehiclePanel, setConfirmRidePanel, setImg, setVehicleT
     {
       imgSrc: "/images/vehiclelogos/car.webp",
       type: "car",
-      title: "UberGo",
+      title: "SawariGo",
       capacity: "4",
       // time: "2 mins away",
       description: "Affordable, compact rides",
@@ -16,7 +16,7 @@ const VehiclePanel = ({setVehiclePanel, setConfirmRidePanel, setImg, setVehicleT
     {
       imgSrc: "/images/vehiclelogos/bike.webp",
       type: "moto",
-      title: "Moto",
+      title: "SawariMoto",
       capacity: "1",
       // time: "3 mins away",
       description: "Affordable motorcycle rides",
@@ -25,7 +25,7 @@ const VehiclePanel = ({setVehiclePanel, setConfirmRidePanel, setImg, setVehicleT
     {
       imgSrc: "/images/vehiclelogos/autoR.webp",
       type: "auto",
-      title: "UberAuto",
+      title: "SawariAuto",
       capacity: "3",
       // time: "3 mins away",
       description: "Affordable Auto rides",

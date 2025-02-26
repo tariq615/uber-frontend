@@ -20,7 +20,6 @@ import CaptainLogin from "./pages/CaptainLogin.jsx";
 import CaptainSignup from "./pages/CaptainSignup.jsx";
 import CaptainHome from "./pages/CaptainHome.jsx";
 import CaptainRiding from "./pages/CaptainRiding.jsx";
-import Loading from "./components/Loading.jsx";
 
 const router = createBrowserRouter([
   {
@@ -95,14 +94,6 @@ const router = createBrowserRouter([
           </CaptainProtectedWrapper>
         ),
       },
-      {
-        path: "/ping",
-        element: (
-          
-            <Loading />
-          
-        ),
-      }
     ],
   },
 ]);

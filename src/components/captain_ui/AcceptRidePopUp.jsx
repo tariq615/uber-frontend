@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import InfoPanel from "./ui_components/InfoPanel";
 import captainService from "../../mongodb/captainConfig";
+import Loading from "../Loading";
 
 const AcceptRidePopUp = ({ride, setRidePopupPanel, setAcceptRidePopupPanel }) => {
   const [otp, setOtp] = useState("");
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const handleClose = () => {
     setAcceptRidePopupPanel(false);
@@ -13,16 +15,18 @@ const AcceptRidePopUp = ({ride, setRidePopupPanel, setAcceptRidePopupPanel }) =>
 
   const submitHander = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     try {
       const response = await captainService.startRide(ride._id, otp);
       console.log(response);
       
       if (response.statusCode === 200) {
+        setLoading(false);
         setAcceptRidePopupPanel(false);
         navigate("/captain-riding", { state: { ride: response.data } });
       }
     } catch (error) {
+      setLoading(false);
       alert(`Error accepting ride: ${error.message}`);
     }
   };
@@ -42,7 +46,7 @@ const AcceptRidePopUp = ({ride, setRidePopupPanel, setAcceptRidePopupPanel }) =>
     
   };
 
-  return (
+  return loading ? (<Loading />): (
     <div>
       <InfoPanel
         title="Confirm to start the Ride"

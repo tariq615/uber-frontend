@@ -1,6 +1,7 @@
 import React from "react";
 import InfoPanel from "./ui_components/InfoPanel";
 
+
 const RidePopUp = ({ride, setRidePopupPanel, acceptRide}) => {
     
     const handleClose = () => {

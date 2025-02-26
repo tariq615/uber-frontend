@@ -283,9 +283,8 @@ const UserHome = () => {
     },
     [waitingForDriverPanel]
   );
-  return (
+  return loading ? (<Loading />) : (
     <div className="h-screen relative overflow-hidden">
-      {loading && (<Loading />)}
       <UserLogo />
       <UserLogoutBtn />
       <div className=" flex flex-col justify-end h-screen relative ">

@@ -1,5 +1,4 @@
 import React, { useRef, useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import CaptainDetails from "./captain_ui/CaptainDetails";
@@ -11,6 +10,7 @@ import captainService from "../mongodb/captainConfig";
 import LiveTracking from "./LiveTracking";
 import CapLogoutBtn from "./captain/CapLogoutBtn";
 import UserLogo from "./logo/UserLogo";
+import Loading from "./Loading";
 
 const CaptainHome = () => {
   const capDetails = useSelector((state) => state.captainAuth.captainData);
@@ -18,6 +18,7 @@ const CaptainHome = () => {
 
   const [ridePopupPanel, setRidePopupPanel] = useState(false);
   const [AcceptRidePopupPanel, setAcceptRidePopupPanel] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const ridePopupPanelRef = useRef(null);
   const AcceptRidePopupPanelRef = useRef(null);
@@ -66,24 +67,24 @@ const CaptainHome = () => {
       console.log(data);
       setRide(data);
       setRidePopupPanel(true);
-  
+
       const timeout = setTimeout(() => {
         setRidePopupPanel(false);
       }, 10000);
-  
+
       // Clear the timeout if the component unmounts before the timeout completes
       return () => clearTimeout(timeout);
     };
-  
+
     // Attach the event listener
-    socket.on('new-ride', handleNewRide);
-  
+    socket.on("new-ride", handleNewRide);
+
     // Cleanup the event listener on unmount
-    return () => socket.off('new-ride', handleNewRide);
+    return () => socket.off("new-ride", handleNewRide);
   }, [socket]);
-  
 
   async function acceptRide() {
+    setLoading(true);
     try {
       const response = await captainService.confirmRide(
         ride._id,
@@ -91,11 +92,13 @@ const CaptainHome = () => {
       );
 
       if (response.statusCode === 200) {
+        setLoading(false);
         // Handle success case
         setRidePopupPanel(false);
         setAcceptRidePopupPanel(true);
       }
     } catch (error) {
+      setLoading(false);
       alert(`Error accepting ride: ${error.message}`);
       setRidePopupPanel(false);
     }
@@ -131,17 +134,19 @@ const CaptainHome = () => {
     [AcceptRidePopupPanel]
   );
 
-  return (
+  return loading ? (
+    <Loading />
+  ) : (
     <div className="h-screen">
       <div className="fixed p-6 top-0 flex items-center justify-between w-screen z-40">
-      <UserLogo />
-      <CapLogoutBtn />
+        <UserLogo />
+        <CapLogoutBtn />
       </div>
-      <div className="h-3/5"> 
+      <div className="h-3/5">
         <LiveTracking color="#d5622d" />
       </div>
       <div className="h-2/5 p-6">
-        <CaptainDetails capDetails={capDetails}/>
+        <CaptainDetails capDetails={capDetails} />
       </div>
       <div
         ref={ridePopupPanelRef}
