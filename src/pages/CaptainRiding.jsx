@@ -33,9 +33,9 @@ const CaptainRiding = () => {
 
             <div className='fixed p-6 top-0 flex items-center justify-between w-screen z-30'>
                 <UserLogo />
-                <Link to='/captain-home' className=' h-10 w-10 bg-white flex items-center justify-center rounded-full'>
+                {/* <Link to='/captain-home' className=' h-10 w-10 bg-white flex items-center justify-center rounded-full'>
                 <i className="text-lg font-medium ri-home-5-line"></i>
-                </Link>
+                </Link> */}
             </div>
 
             <div className='h-4/5 absolute w-screen top-0 '>
